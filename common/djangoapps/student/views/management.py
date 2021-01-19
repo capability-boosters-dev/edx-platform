@@ -547,8 +547,8 @@ def activate_account(request, key):
                 extra_tags='account-activation aa-icon',
             )
 
-    if should_redirect_to_logistration_mircrofrontend():
-        query_param = '' if request.user.is_authenticated else '?activate_account={}'.format(activation_message_type)
+    if should_redirect_to_logistration_mircrofrontend() and not request.user.is_authenticated:
+        query_param = '?activate_account={}'.format(activation_message_type)
         return redirect(reverse('dashboard') + query_param)
 
     return redirect('dashboard')
